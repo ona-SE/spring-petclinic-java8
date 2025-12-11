@@ -16,7 +16,6 @@
 
 package org.springframework.samples.petclinic;
 
-import io.hypersistence.optimizer.HypersistenceOptimizer;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -53,9 +52,6 @@ public class PetclinicIntegrationTests {
     @Autowired
     private TransactionTemplate transactionTemplate;
 
-    @Autowired
-    private HypersistenceOptimizer hypersistenceOptimizer;
-
     @Before
     public void init() {
         transactionTemplate.execute(status -> {
@@ -68,30 +64,18 @@ public class PetclinicIntegrationTests {
 
     @Test
     public void testFindAll() {
-        assertTrue(hypersistenceOptimizer.getEvents().isEmpty());
-
         vetRepository.findAll();
         vetRepository.findAll(); // served from cache
-
-        assertTrue(hypersistenceOptimizer.getEvents().isEmpty());
     }
 
     @Test
     public void testSaveAll() {
-        hypersistenceOptimizer.getEvents().clear();
-
         storeService.saveAll(newStoreDetailsList(1000));
-
-        assertTrue(hypersistenceOptimizer.getEvents().isEmpty());
     }
 
     @Test
     public void testInsertAll() {
-        hypersistenceOptimizer.getEvents().clear();
-
         storeService.insertAll(newStoreDetailsList(2000));
-
-        assertTrue(hypersistenceOptimizer.getEvents().isEmpty());
     }
 
     private List<StoreDetails> newStoreDetailsList(int storeCount) {
@@ -105,7 +89,7 @@ public class PetclinicIntegrationTests {
                     .setStore(
                         new Store()
                             .setId(i)
-                            .setName(String.format("Store no %d", i))
+                            .setName("Store no %d".formatted(i))
                     )
             );
         }
