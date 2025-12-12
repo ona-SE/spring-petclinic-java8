@@ -112,11 +112,13 @@
     </dependency>
 
     <!-- performance tuning -->
+    <!-- Commented out: dependency not available in Maven repositories
     <dependency>
       <groupId>io.hypersistence</groupId>
       <artifactId>hypersistence-optimizer</artifactId>
       <version>${hypersistence-optimizer.version}</version>
     </dependency>
+    -->
 
     <dependency>
       <groupId>org.hibernate</groupId>
