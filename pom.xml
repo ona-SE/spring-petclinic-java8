@@ -31,6 +31,7 @@
 
     <hypersistence-optimizer.version>2.10.1</hypersistence-optimizer.version>
     <hibernate.version>5.4.21.Final</hibernate.version>
+    <jackson-databind.version>2.9.10.1</jackson-databind.version>
   </properties>
 
   <dependencies>
@@ -112,16 +113,25 @@
     </dependency>
 
     <!-- performance tuning -->
+    <!-- Temporarily commented out due to repository availability
     <dependency>
       <groupId>io.hypersistence</groupId>
       <artifactId>hypersistence-optimizer</artifactId>
       <version>${hypersistence-optimizer.version}</version>
     </dependency>
+    -->
 
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
+    </dependency>
+
+    <!-- Override jackson-databind to fix CVE-2019-17531 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind.version}</version>
     </dependency>
   </dependencies>
 
