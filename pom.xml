@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.1.4.RELEASE</version>
+    <version>2.7.18</version>
   </parent>
   <name>petclinic</name>
 
@@ -30,7 +30,13 @@
     <jacoco.version>0.8.2</jacoco.version>
 
     <hypersistence-optimizer.version>2.10.1</hypersistence-optimizer.version>
-    <hibernate.version>5.4.21.Final</hibernate.version>
+    <hibernate.version>5.6.15.Final</hibernate.version>
+
+    <!-- Version overrides for CVE remediation where Spring Boot 2.7.18 defaults are insufficient -->
+    <spring-framework.version>5.3.39</spring-framework.version>
+    <tomcat.version>9.0.106</tomcat.version>
+    <jackson-bom.version>2.15.4</jackson-bom.version>
+    <hsqldb.version>2.5.2</hsqldb.version>
   </properties>
 
   <dependencies>
@@ -57,7 +63,21 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -68,8 +88,8 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
       <scope>runtime</scope>
     </dependency>
 
@@ -111,12 +131,15 @@
       <optional>true</optional>
     </dependency>
 
-    <!-- performance tuning -->
+    <!-- performance tuning - hypersistence-optimizer requires a private/commercial repository -->
+    <!-- Uncomment when the repository is configured -->
+    <!--
     <dependency>
       <groupId>io.hypersistence</groupId>
       <artifactId>hypersistence-optimizer</artifactId>
       <version>${hypersistence-optimizer.version}</version>
     </dependency>
+    -->
 
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -173,6 +196,7 @@
       <plugin>
         <groupId>pl.project13.maven</groupId>
         <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.9.10</version>
         <executions>
           <execution>
             <goals>
